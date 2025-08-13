@@ -1,0 +1,76 @@
+name: Deploy Blazor WebAssembly to GitHub Pages
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+env:
+  PUBLISH_DIR: SmartCodeLab/bin/Release/net9.0/publish/wwwroot
+  BASE_PATH: /${{ github.event.repository.name }}/
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore
+        run: dotnet restore SmartCodeLab/SmartCodeLab.csproj
+
+      - name: Publish (Release)
+        run: dotnet publish SmartCodeLab/SmartCodeLab.csproj -c Release
+
+      - name: Verify publish output
+        run: |
+          test -d "$PUBLISH_DIR" && ls -la "$PUBLISH_DIR" | cat
+
+      - name: Add .nojekyll to allow files and folders starting with _
+        run: |
+          touch "$PUBLISH_DIR/.nojekyll"
+
+      - name: Create 404.html for SPA deep links
+        run: cp "$PUBLISH_DIR/index.html" "$PUBLISH_DIR/404.html"
+
+      - name: Rewrite <base href> for GitHub Pages
+        shell: bash
+        run: |
+          set -e
+          for f in index.html 404.html; do
+            if [ -f "$PUBLISH_DIR/$f" ]; then
+              sed -i 's#<base href="/" />#<base href="'"$BASE_PATH"'" />#g' "$PUBLISH_DIR/$f"
+            fi
+          done
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ env.PUBLISH_DIR }}
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+
