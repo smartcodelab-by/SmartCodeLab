@@ -1,13 +1,13 @@
 .brand-logo {
 	height: 28px;
 	width: auto;
-	filter: grayscale(100%) brightness(1.2);
+	filter: none;
 }
 
 .brand-text {
 	font-weight: 900;
 	letter-spacing: 2px;
-	color: #FFFFFF;
+	color: #161616;
 }
 .navbar-toggler {
     background-color: rgba(255, 255, 255, 0.1);

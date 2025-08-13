@@ -593,3 +593,47 @@ code {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
     text-align: start;
 }
+
+/* ===== IBM-LIKE LIGHT THEME OVERRIDES ===== */
+:root {
+    --ibm-primary: #0F62FE;
+    --ibm-purple: #8A3FFC;
+    --ibm-text-strong: #161616;
+    --ibm-text-muted: #525252;
+    --ibm-bg: #FFFFFF;
+    --ibm-bg-subtle: #F4F4F4;
+}
+
+body {
+    background: var(--ibm-bg);
+    color: var(--ibm-text-strong);
+}
+
+.bg-light { background-color: var(--ibm-bg-subtle) !important; }
+.text-primary { color: var(--ibm-primary) !important; }
+.nav-link { color: var(--ibm-text-muted) !important; }
+.nav-link:hover { color: var(--ibm-text-strong) !important; }
+.navbar-brand { color: var(--ibm-text-strong) !important; }
+
+.hero-section { background: var(--ibm-bg); color: var(--ibm-text-strong); }
+.hero-section::before { display: none; }
+.hero-title {
+    background: linear-gradient(90deg, var(--ibm-primary), var(--ibm-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.hero-subtitle { color: var(--ibm-text-muted); opacity: 1; }
+
+.service-card,
+.about-card,
+.stat-card,
+.contact-info,
+.contact-form-container { background: #FFFFFF; }
+
+.contact-details h5 { color: var(--ibm-text-strong); }
+.form-label { color: var(--ibm-text-muted); }
+.tech-name { color: var(--ibm-text-muted); }
+.text-muted { color: var(--ibm-text-muted) !important; opacity: 1 !important; }
+
+.logo-hero-img { filter: none; }
