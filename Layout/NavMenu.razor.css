@@ -10,13 +10,14 @@
 	color: #161616;
 }
 
-.navbar-nav { gap: 24px; }
+.navbar-nav { gap: 24px; white-space: nowrap; }
 .navbar-nav .nav-link {
 	padding: 0;
 	display: inline-flex;
 	align-items: center;
 	height: 40px;
-	line-height: 1;
+	line-height: 40px;
+	font-weight: 500;
 	color: #525252 !important;
 }
 .navbar-nav .nav-link.active, .navbar-nav .nav-link:hover {
