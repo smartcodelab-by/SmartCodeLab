@@ -40,6 +40,10 @@
 .navbar .navbar-brand { margin-right: 24px; }
 .nav-center { pointer-events: auto; }
 .no-wrap { white-space: nowrap; }
+.nav-center { display: flex; justify-content: center; }
+.nav-center .navbar-nav { flex-wrap: nowrap !important; }
+.navbar .nav-link { padding-left: 0 !important; padding-right: 0 !important; }
+.navbar .navbar-nav .nav-item { line-height: 40px !important; display: inline-flex; align-items: center; }
 
 @media (max-width: 991.98px) {
 	.nav-center { display: none !important; }
