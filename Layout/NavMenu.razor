@@ -1,27 +1,36 @@
 ﻿<nav class="navbar navbar-expand-lg navbar-light bg-white px-3">
-    <div class="container-fluid">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
         <a class="navbar-brand d-flex align-items-center gap-2" href="">
             <img src="images/logo.png" alt="SmartCodeLab" class="brand-logo" />
             <span class="brand-text">SMARTCODELAB</span>
         </a>
-        <div id="topNav" class="@NavCollapseCssClass justify-content-center">
-            <ul class="navbar-nav justify-content-center w-100 align-items-center gap-4">
+
+        <div class="nav-center flex-grow-1 d-none d-lg-flex">
+            <ul class="navbar-nav mx-auto align-items-center gap-4 no-wrap">
                 <li class="nav-item">
-                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">Главная</NavLink>
+                    <NavLink class="nav-link px-0" href="" Match="NavLinkMatch.All">Главная</NavLink>
                 </li>
                 <li class="nav-item">
-                    <NavLink class="nav-link" href="about">О нас</NavLink>
+                    <NavLink class="nav-link px-0" href="about">О нас</NavLink>
                 </li>
                 <li class="nav-item">
-                    <NavLink class="nav-link" href="contact">Контакты</NavLink>
+                    <NavLink class="nav-link px-0" href="contact">Контакты</NavLink>
                 </li>
             </ul>
         </div>
-        <button class="navbar-toggler" type="button" @onclick="ToggleNavMenu" aria-controls="topNav" aria-expanded="false" aria-label="Toggle navigation">
+
+        <button class="navbar-toggler d-lg-none" type="button" @onclick="ToggleNavMenu" aria-controls="topNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
+        <div id="topNav" class="@NavCollapseCssClass d-lg-none w-100 mt-2">
+            <ul class="navbar-nav align-items-start gap-2">
+                <li class="nav-item"><NavLink class="nav-link" href="" Match="NavLinkMatch.All">Главная</NavLink></li>
+                <li class="nav-item"><NavLink class="nav-link" href="about">О нас</NavLink></li>
+                <li class="nav-item"><NavLink class="nav-link" href="contact">Контакты</NavLink></li>
+            </ul>
+        </div>
     </div>
-    
 </nav>
 
 @code {
