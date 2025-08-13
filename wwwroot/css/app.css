@@ -641,6 +641,18 @@ body {
 /* helper for dark strong text */
 .text-dark-strong { color: #161616 !important; }
 
+/* Fix: primary button text invisible — force white text and blue background */
+.btn-primary {
+	background: var(--ibm-primary) !important;
+	border-color: var(--ibm-primary) !important;
+	color: #FFFFFF !important;
+}
+.btn-primary:hover {
+	background: #0353e9 !important;
+	border-color: #0353e9 !important;
+	color: #FFFFFF !important;
+}
+
 /* Specific section color fixes: dark text on light sections */
 .bg-light .section-title { color: #161616 !important; }
 .bg-light .section-subtitle { color: #161616 !important; opacity: 1 !important; }
