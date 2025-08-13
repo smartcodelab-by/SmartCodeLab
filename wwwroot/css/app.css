@@ -3,7 +3,7 @@
     --primary-blue: #0A2463;
     --accent-teal: #3E92CC;
     --light-gray: #121212;
-    --dark-gray: #E5E7EB;
+    --dark-gray: #FFFFFF;
     --white: #0B0B0B;
     --pure-white: #FFFFFF;
     --pure-black: #000000;
@@ -30,12 +30,12 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Manrope', sans-serif;
     font-weight: 800;
     line-height: 1.2;
-    color: #D1D5DB;
+    color: #FFFFFF;
     letter-spacing: 0.5px;
 }
 
 /* ===== GLOBAL STYLES ===== */
-.text-primary { color: var(--primary-blue) !important; }
+.text-primary { color: #FFFFFF !important; }
 .text-accent { color: var(--accent-teal) !important; }
 .bg-primary { background-color: var(--primary-blue) !important; }
 .bg-accent { background-color: var(--accent-teal) !important; }
@@ -122,7 +122,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 800;
     margin-bottom: 1.5rem;
-    color: #E5E7EB;
+    color: #FFFFFF;
 }
 
 .hero-subtitle {
@@ -171,15 +171,15 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 800;
     text-align: center;
     margin-bottom: 1rem;
-    color: var(--primary-blue);
+    color: #FFFFFF;
 }
 
 .section-subtitle {
     font-size: 1.2rem;
     text-align: center;
     margin-bottom: 4rem;
-    color: var(--dark-gray);
-    opacity: 0.8;
+    color: #FFFFFF;
+    opacity: 1;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
@@ -326,7 +326,7 @@ h1, h2, h3, h4, h5, h6 {
 .contact-details h5 {
     font-size: 1.1rem;
     margin-bottom: 0.5rem;
-    color: var(--primary-blue);
+    color: #FFFFFF;
     font-weight: 600;
 }
 
@@ -373,7 +373,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .form-label {
     font-weight: 600;
-    color: var(--primary-blue);
+    color: #FFFFFF;
     margin-bottom: 0.5rem;
     font-size: 14px;
     text-transform: uppercase;
@@ -385,7 +385,7 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Manrope', sans-serif;
     font-weight: 800;
     font-size: 1.8rem;
-    color: #E5E7EB !important;
+    color: #FFFFFF !important;
 }
 .brand-logo { height: 28px; width: auto; filter: grayscale(100%) brightness(1.2); }
 .brand-text { font-weight: 900; letter-spacing: 2px; }
@@ -395,7 +395,7 @@ h1, h2, h3, h4, h5, h6 {
     margin: 5px 0;
     transition: var(--transition);
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.8) !important;
+    color: #FFFFFF !important;
 }
 
 .nav-link:hover {
@@ -491,6 +491,9 @@ h1, h2, h3, h4, h5, h6 {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--primary-blue);
 }
+
+/* Force muted texts to white on dark background */
+.text-muted { color: #FFFFFF !important; opacity: 1 !important; }
 
 /* ===== LOADING ANIMATIONS ===== */
 .loading-progress {
