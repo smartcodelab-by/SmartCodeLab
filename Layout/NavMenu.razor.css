@@ -10,8 +10,13 @@
 	color: #161616;
 }
 
+.navbar-nav { gap: 24px; }
 .navbar-nav .nav-link {
-	padding: 0.5rem 0.75rem;
+	padding: 0;
+	display: inline-flex;
+	align-items: center;
+	height: 40px;
+	line-height: 1;
 	color: #525252 !important;
 }
 .navbar-nav .nav-link.active, .navbar-nav .nav-link:hover {
@@ -27,7 +32,7 @@
 .navbar .container-fluid { display: flex; align-items: center; }
 .navbar .navbar-collapse { display: flex; align-items: center; justify-content: center; }
 .navbar-nav { align-items: center; }
-.navbar-nav .nav-item { display: flex; align-items: center; }
+.navbar-nav .nav-item { display: flex; align-items: center; line-height: 1; }
 
 /* Full header horizontal centering of nav group */
 .navbar .container-fluid { justify-content: center; position: relative; }
