@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  PUBLISH_DIR: SmartCodeLab/bin/Release/net9.0/publish/wwwroot
+  PUBLISH_DIR: bin/Release/net9.0/publish/wwwroot
   BASE_PATH: /${{ github.event.repository.name }}/
 
 jobs:
@@ -31,10 +31,10 @@ jobs:
           dotnet-version: '9.0.x'
 
       - name: Restore
-        run: dotnet restore SmartCodeLab/SmartCodeLab.csproj
+        run: dotnet restore ./SmartCodeLab.csproj
 
       - name: Publish (Release)
-        run: dotnet publish SmartCodeLab/SmartCodeLab.csproj -c Release
+        run: dotnet publish ./SmartCodeLab.csproj -c Release
 
       - name: Verify publish output
         run: |
