@@ -1,14 +1,11 @@
-﻿<nav class="navbar navbar-expand-md navbar-light bg-white px-3">
+﻿<nav class="navbar navbar-expand-lg navbar-light bg-white px-3">
     <div class="container-fluid">
         <a class="navbar-brand d-flex align-items-center gap-2" href="">
             <img src="images/logo.png" alt="SmartCodeLab" class="brand-logo" />
             <span class="brand-text">SMARTCODELAB</span>
         </a>
-        <button class="navbar-toggler" type="button" @onclick="ToggleNavMenu" aria-controls="topNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <div id="topNav" class="@NavCollapseCssClass justify-content-center">
-            <ul class="navbar-nav align-items-center gap-3">
+            <ul class="navbar-nav justify-content-center w-100 align-items-center gap-4">
                 <li class="nav-item">
                     <NavLink class="nav-link" href="" Match="NavLinkMatch.All">Главная</NavLink>
                 </li>
@@ -20,6 +17,9 @@
                 </li>
             </ul>
         </div>
+        <button class="navbar-toggler" type="button" @onclick="ToggleNavMenu" aria-controls="topNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </div>
     
 </nav>

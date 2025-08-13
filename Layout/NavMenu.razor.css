@@ -36,16 +36,15 @@
 .navbar-nav .nav-item { display: flex; align-items: center; line-height: 1; }
 
 /* Full header horizontal centering of nav group */
-.navbar .container-fluid { justify-content: center; position: relative; }
-.navbar .navbar-brand { position: absolute; left: 16px; margin-right: 0; }
-.navbar .navbar-toggler { position: absolute; right: 16px; }
+.navbar .container-fluid { justify-content: space-between; position: relative; }
+.navbar .navbar-brand { position: relative; left: 0; margin-right: 24px; z-index: 2; }
+.navbar .navbar-toggler { position: relative; z-index: 2; }
+.navbar #topNav { position: absolute; left: 50%; transform: translateX(-50%); z-index: 1; }
 
 @media (max-width: 767.98px) {
-	/* Keep mobile layout usable */
-	.navbar .navbar-collapse { justify-content: flex-start; }
+	/* Mobile: normal flow */
+	.navbar #topNav { position: static; transform: none; }
 	.navbar .container-fluid { justify-content: space-between; }
-	.navbar .navbar-brand { position: static; }
-	.navbar .navbar-toggler { position: static; }
 }
 .navbar-toggler {
     background-color: rgba(255, 255, 255, 0.1);
