@@ -86,23 +86,27 @@
             <div class="col-lg-8">
                 <div class="contact-form-container">
                     <h3 class="h4 text-primary mb-4">Отправить сообщение</h3>
-                    <form class="contact-form">
+                    <form action="https://formsubmit.co/smartcodelab.by@gmail.com" method="POST" class="contact-form">
+                        <input type="hidden" name="_cc" value="digilevich.alexandr@gmail.com" />
+                        <input type="hidden" name="_subject" value="SmartCodeLab — новое сообщение с сайта" />
+                        <input type="hidden" name="_template" value="table" />
+                        <input type="hidden" name="_captcha" value="false" />
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="name" class="form-label">Ваше имя *</label>
-                                <input type="text" class="form-control" id="name" placeholder="Введите ваше имя" required />
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Введите ваше имя" required />
                             </div>
                             <div class="col-md-6">
                                 <label for="email" class="form-label">Email *</label>
-                                <input type="email" class="form-control" id="email" placeholder="Введите ваш email" required />
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Введите ваш email" required />
                             </div>
                             <div class="col-12">
                                 <label for="company" class="form-label">Компания</label>
-                                <input type="text" class="form-control" id="company" placeholder="Название вашей компании" />
+                                <input type="text" class="form-control" id="company" name="company" placeholder="Название вашей компании" />
                             </div>
                             <div class="col-12">
                                 <label for="project-type" class="form-label">Тип проекта *</label>
-                                <select class="form-select" id="project-type" required>
+                                <select class="form-select" id="project-type" name="project_type" required>
                                     <option value="">Выберите тип проекта</option>
                                     <option value="ai-development">AI-разработка</option>
                                     <option value="web-app">Веб-приложение</option>
@@ -115,11 +119,11 @@
                             </div>
                             <div class="col-12">
                                 <label for="subject" class="form-label">Тема проекта *</label>
-                                <input type="text" class="form-control" id="subject" placeholder="Кратко опишите тему проекта" required />
+                                <input type="text" class="form-control" id="subject" name="subject" placeholder="Кратко опишите тему проекта" required />
                             </div>
                             <div class="col-md-6">
                                 <label for="budget" class="form-label">Бюджет проекта</label>
-                                <select class="form-select" id="budget">
+                                <select class="form-select" id="budget" name="budget">
                                     <option value="">Выберите бюджет</option>
                                     <option value="small">До 1,000,000 ₽</option>
                                     <option value="medium">1,000,000 - 5,000,000 ₽</option>
@@ -130,7 +134,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="timeline" class="form-label">Сроки реализации</label>
-                                <select class="form-select" id="timeline">
+                                <select class="form-select" id="timeline" name="timeline">
                                     <option value="">Выберите сроки</option>
                                     <option value="urgent">Срочно (1-3 месяца)</option>
                                     <option value="normal">Обычно (3-6 месяцев)</option>
@@ -140,11 +144,11 @@
                             </div>
                             <div class="col-12">
                                 <label for="message" class="form-label">Описание проекта *</label>
-                                <textarea class="form-control" id="message" rows="6" placeholder="Подробно опишите ваш проект, требования, ожидания и бизнес-цели" required></textarea>
+                                <textarea class="form-control" id="message" name="message" rows="6" placeholder="Подробно опишите ваш проект, требования, ожидания и бизнес-цели" required></textarea>
                             </div>
                             <div class="col-12">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="agreement" required />
+                                    <input class="form-check-input" type="checkbox" id="agreement" name="consent" value="agree" required />
                                     <label class="form-check-label" for="agreement">
                                         Я согласен с <a href="#" class="text-primary">политикой конфиденциальности</a> и даю согласие на обработку персональных данных
                                     </label>
