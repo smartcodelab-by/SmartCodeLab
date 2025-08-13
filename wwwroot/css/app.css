@@ -637,3 +637,23 @@ body {
 .text-muted { color: var(--ibm-text-muted) !important; opacity: 1 !important; }
 
 .logo-hero-img { filter: none; }
+
+/* helper for dark strong text */
+.text-dark-strong { color: #161616 !important; }
+
+/* Specific section color fixes: dark text on light sections */
+.bg-light .section-title { color: #161616 !important; }
+.bg-light .section-subtitle { color: #161616 !important; opacity: 1 !important; }
+
+/* White button variant for CTA */
+.btn-white {
+    background: #FFFFFF;
+    color: #161616 !important;
+    border: 1px solid #E0E0E0;
+    box-shadow: var(--shadow-soft);
+}
+.btn-white:hover {
+    background: #F4F4F4;
+    color: #161616 !important;
+    box-shadow: var(--shadow-hover);
+}
