@@ -1,0 +1,39 @@
+name: Test Build
+
+on:
+  pull_request:
+    branches: [ main, master ]
+  push:
+    branches: [ develop, feature/* ]
+
+jobs:
+  test-build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 🚀 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🐳 Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+        
+    - name: 📦 Restore dependencies
+      run: dotnet restore
+      
+    - name: 🧪 Run tests
+      run: dotnet test --no-restore --verbosity normal
+      
+    - name: 🏗️ Build application
+      run: dotnet build --no-restore --configuration Debug
+      
+    - name: 📤 Test publish
+      run: dotnet publish --no-build --configuration Debug --output ./test-publish
+      
+    - name: ✅ Build test completed
+      run: |
+        echo "🎉 Тест сборки прошел успешно!"
+        echo "📁 Создана папка test-publish"
+        echo "🔗 PR: ${{ github.event.pull_request.html_url }}"
+        echo "👤 Автор: ${{ github.actor }}"

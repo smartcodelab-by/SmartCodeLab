@@ -1,0 +1,115 @@
+name: Deploy SmartCodeLab to s2.open.by
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+        - production
+        - staging
+
+env:
+  FTP_SERVER: s2.open.by
+  FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+  FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+  FTP_PATH: /public_html
+  DOTNET_VERSION: '8.0.x'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 🚀 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🐳 Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+        
+    - name: 📦 Restore dependencies
+      run: dotnet restore
+      
+    - name: 🧪 Run tests
+      run: dotnet test --no-restore --verbosity normal
+      
+    - name: 🏗️ Build application
+      run: dotnet build --no-restore --configuration Release
+      
+    - name: 📤 Publish application
+      run: dotnet publish --no-build --configuration Release --output ./publish
+      
+    - name: 📁 Create .htaccess
+      run: |
+        cat > ./publish/.htaccess << 'EOF'
+        RewriteEngine On
+        
+        # Перенаправление всех запросов на index.html для SPA
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule ^(.*)$ index.html [L]
+        
+        # Кэширование статических файлов
+        <IfModule mod_expires.c>
+            ExpiresActive On
+            ExpiresByType text/css "access plus 1 year"
+            ExpiresByType application/javascript "access plus 1 year"
+            ExpiresByType image/png "access plus 1 year"
+            ExpiresByType image/jpg "access plus 1 year"
+            ExpiresByType image/jpeg "access plus 1 year"
+            ExpiresByType image/gif "access plus 1 year"
+            ExpiresByType image/svg+xml "access plus 1 year"
+        </IfModule>
+        
+        # Сжатие файлов
+        <IfModule mod_deflate.c>
+            AddOutputFilterByType DEFLATE text/plain
+            AddOutputFilterByType DEFLATE text/html
+            AddOutputFilterByType DEFLATE text/xml
+            AddOutputFilterByType DEFLATE text/css
+            AddOutputFilterByType DEFLATE application/xml
+            AddOutputFilterByType DEFLATE application/xhtml+xml
+            AddOutputFilterByType DEFLATE application/rss+xml
+            AddOutputFilterByType DEFLATE application/javascript
+            AddOutputFilterByType DEFLATE application/x-javascript
+        </IfModule>
+        EOF
+        
+    - name: 📋 List publish contents
+      run: |
+        echo "📁 Contents of publish folder:"
+        ls -la ./publish
+        echo ""
+        echo "📁 Contents of wwwroot:"
+        ls -la ./publish/wwwroot
+        
+    - name: 🚀 Deploy to s2.open.by
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ env.FTP_SERVER }}
+        username: ${{ env.FTP_USERNAME }}
+        password: ${{ env.FTP_PASSWORD }}
+        local-dir: ./publish/
+        server-dir: ${{ env.FTP_PATH }}/
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/node_modules/**
+          **/.github/**
+          **/README.md
+          **/.gitignore
+          
+    - name: ✅ Deploy completed
+      run: |
+        echo "🎉 SmartCodeLab успешно развернут на s2.open.by!"
+        echo "🌐 Сайт доступен по адресу: https://smartcodelab.by"
+        echo "📅 Время деплоя: $(date)"
+        echo "🔗 Commit: ${{ github.sha }}"
+        echo "👤 Автор: ${{ github.actor }}"

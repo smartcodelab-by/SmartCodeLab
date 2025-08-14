@@ -1,0 +1,73 @@
+name: Deploy to Staging
+
+on:
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Staging environment'
+        required: true
+        default: 'staging'
+        type: string
+
+env:
+  FTP_SERVER: s2.open.by
+  FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+  FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+  FTP_PATH: /staging
+  DOTNET_VERSION: '8.0.x'
+
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 🚀 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🐳 Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+        
+    - name: 📦 Restore dependencies
+      run: dotnet restore
+      
+    - name: 🏗️ Build application
+      run: dotnet build --no-restore --configuration Debug
+      
+    - name: 📤 Publish application
+      run: dotnet publish --no-build --configuration Debug --output ./staging
+      
+    - name: 📁 Create .htaccess for staging
+      run: |
+        cat > ./staging/.htaccess << 'EOF'
+        RewriteEngine On
+        
+        # Staging environment - no caching
+        <IfModule mod_expires.c>
+            ExpiresActive Off
+        </IfModule>
+        
+        # SPA routing
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule ^(.*)$ index.html [L]
+        EOF
+        
+    - name: 🚀 Deploy to staging
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ env.FTP_SERVER }}
+        username: ${{ env.FTP_USERNAME }}
+        password: ${{ env.FTP_PASSWORD }}
+        local-dir: ./staging/
+        server-dir: ${{ env.FTP_PATH }}/
+        
+    - name: ✅ Staging deploy completed
+      run: |
+        echo "🎉 SmartCodeLab развернут в staging окружении!"
+        echo "🔗 Staging URL: https://s2.open.by/staging"
+        echo "📅 Время деплоя: $(date)"
+        echo "🔗 PR: ${{ github.event.pull_request.html_url }}"
