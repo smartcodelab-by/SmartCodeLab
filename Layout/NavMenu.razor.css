@@ -31,7 +31,7 @@
 
 /* Vertical centering of menu in header */
 .navbar .container-fluid { display: flex; align-items: center; }
-.navbar .navbar-collapse { display: flex; align-items: center; justify-content: center; }
+.navbar .navbar-collapse.show { display: flex; align-items: center; justify-content: center; }
 .navbar-nav { align-items: center; }
 .navbar-nav .nav-item { display: flex; align-items: center; line-height: 1; }
 
@@ -118,11 +118,6 @@
 @media (min-width: 641px) {
     .navbar-toggler {
         display: none;
-    }
-
-    .collapse {
-        /* Never collapse the sidebar for wide screens */
-        display: block;
     }
 
     .nav-scrollable {

@@ -5,18 +5,12 @@
             <span class="brand-text">SMARTCODELAB</span>
         </a>
 
-        <div class="nav-center flex-grow-1 d-none d-lg-flex">
-            <ul class="navbar-nav mx-auto align-items-center gap-4 no-wrap">
-                <li class="nav-item">
-                    <NavLink class="nav-link px-0" href="" Match="NavLinkMatch.All">Главная</NavLink>
-                </li>
-                <li class="nav-item">
-                    <NavLink class="nav-link px-0" href="about">О нас</NavLink>
-                </li>
-                <li class="nav-item">
-                    <NavLink class="nav-link px-0" href="contact">Контакты</NavLink>
-                </li>
-            </ul>
+        <div class="nav-center flex-grow-1 d-none d-lg-flex" style="display: flex;justify-content: center;align-items: center;">
+            <div class="navbar-links" style="display: flex;gap: 1rem;width: 100%;">
+                <a href="" class="nav-link px-0 active" aria-current="page">Главная</a>
+                <a href="about" class="nav-link px-0">О нас</a>
+                <a href="contact" class="nav-link px-0">Контакты</a>
+            </div>
         </div>
 
         <button class="navbar-toggler d-lg-none" type="button" @onclick="ToggleNavMenu" aria-controls="topNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +30,7 @@
 @code {
     private bool collapseNavMenu = true;
 
-    private string NavCollapseCssClass => collapseNavMenu ? "collapse navbar-collapse" : "navbar-collapse";
+    private string NavCollapseCssClass => collapseNavMenu ? "collapse" : string.Empty;
 
     private void ToggleNavMenu()
     {
