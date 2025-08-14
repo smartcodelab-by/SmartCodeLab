@@ -1,0 +1,40 @@
+name: Test FTP Connection
+
+on:
+  workflow_dispatch:
+
+env:
+  FTP_SERVER: 93.84.119.237
+  FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+  FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+
+jobs:
+  test-ftp:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 🚀 Test FTP Connection
+      run: |
+        echo "🔍 Testing FTP connection to ${{ env.FTP_SERVER }}"
+        echo "👤 Username: ${{ env.FTP_USERNAME }}"
+        echo "🔑 Password: [HIDDEN]"
+        
+        # Test basic connectivity
+        echo "🔍 Testing port 21 (FTP)..."
+        nc -zv ${{ env.FTP_SERVER }} 21 || echo "❌ Port 21 not accessible"
+        
+        echo "🔍 Testing port 990 (FTPS)..."
+        nc -zv ${{ env.FTP_SERVER }} 990 || echo "❌ Port 990 not accessible"
+        
+        echo "🔍 Testing port 22 (SFTP)..."
+        nc -zv ${{ env.FTP_SERVER }} 22 || echo "❌ Port 22 not accessible"
+        
+        # Test with curl (basic FTP)
+        echo "🔍 Testing FTP connection..."
+        curl -v --ftp-port - ftp://${{ env.FTP_USERNAME }}:${{ env.FTP_PASSWORD }}@${{ env.FTP_SERVER }}/ || echo "❌ FTP connection failed"
+        
+        # Test with curl (FTPS)
+        echo "🔍 Testing FTPS connection..."
+        curl -v --ftp-ssl ftps://${{ env.FTP_USERNAME }}:${{ env.FTP_PASSWORD }}@${{ env.FTP_SERVER }}/ || echo "❌ FTPS connection failed"
+        
+        echo "✅ Connection test completed"

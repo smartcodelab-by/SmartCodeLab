@@ -15,7 +15,7 @@ on:
         - staging
 
 env:
-  FTP_SERVER: s2.open.by
+  FTP_SERVER: 93.84.119.237
   FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
   FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
   FTP_PATH: /public_html
@@ -90,7 +90,7 @@ jobs:
         echo "📁 Contents of wwwroot:"
         ls -la ./publish/wwwroot
         
-    - name: 🚀 Deploy to s2.open.by
+    - name: 🚀 Deploy to s2.open.by (FTP)
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
         server: ${{ env.FTP_SERVER }}
@@ -105,6 +105,35 @@ jobs:
           **/.github/**
           **/README.md
           **/.gitignore
+        dangerous-clean-slate: true
+        timeout: 300000
+        port: 21
+        protocol: ftp
+        
+    - name: 🚀 Deploy to s2.open.by (FTPS - защищенный)
+      if: failure()
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ env.FTP_SERVER }}
+        username: ${{ env.FTP_USERNAME }}
+        password: ${{ env.FTP_PASSWORD }}
+        local-dir: ./publish/
+        server-dir: ${{ env.FTP_PATH }}/
+        protocol: ftps
+        port: 990
+        dangerous-clean-slate: true
+        timeout: 300000
+        
+    - name: 🚀 Deploy to s2.open.by (SFTP - альтернатива)
+      if: failure()
+      uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+      with:
+        username: ${{ env.FTP_USERNAME }}
+        server: ${{ env.FTP_SERVER }}
+        ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+        local_path: './publish/*'
+        remote_path: ${{ env.FTP_PATH }}/
+        delete_remote_files: true
           
     - name: ✅ Deploy completed
       run: |
