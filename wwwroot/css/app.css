@@ -669,3 +669,32 @@ body {
     color: #161616 !important;
     box-shadow: var(--shadow-hover);
 }
+
+/* ===== COMPACT HOME LAYOUT (fits 1920x1080 without scroll) ===== */
+.home-compact .hero-section {
+	min-height: 68vh;
+	padding: 48px 0;
+}
+
+.home-compact .hero-title {
+	margin-bottom: 1rem;
+	font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+}
+
+.home-compact .hero-subtitle {
+	margin-bottom: 1.25rem;
+}
+
+.home-compact .section {
+	padding: 64px 0;
+}
+
+@media (min-width: 1600px) {
+	.home-compact .hero-section {
+		min-height: 58vh;
+		padding: 40px 0;
+	}
+	.home-compact .section {
+		padding: 56px 0;
+	}
+}
