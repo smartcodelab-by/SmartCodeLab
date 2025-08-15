@@ -31,3 +31,4 @@ Write-Host "3. Change DNS servers to:" -ForegroundColor White
 Write-Host "   - ns1.domain.by" -ForegroundColor Green
 Write-Host "   - ns2.domain.by" -ForegroundColor Green
 Write-Host "4. Wait 24-48 hours for propagation" -ForegroundColor White
+
